@@ -1,4 +1,4 @@
-package net.alexanderkahn.service.commons.model.request
+package net.alexanderkahn.service.commons.model.request.body
 
 import net.alexanderkahn.service.commons.model.exception.ConflictException
 

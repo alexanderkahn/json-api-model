@@ -1,4 +1,4 @@
-package net.alexanderkahn.service.commons.model.request.filter
+package net.alexanderkahn.service.commons.model.request.parameter
 
 import java.util.*
 
