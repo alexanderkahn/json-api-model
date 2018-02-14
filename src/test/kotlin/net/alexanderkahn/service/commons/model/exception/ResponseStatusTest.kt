@@ -15,7 +15,7 @@ internal class ResponseStatusTest {
     @Nested inner class ObjectResponseTest {
         @Test fun returnsOkStatus() {
             val objectResponse = ObjectResponse(TestResourceObject())
-            assertEquals(objectResponse.responseBody.meta.status, ResponseStatus.OK)
+            assertEquals(objectResponse.body.meta.status, ResponseStatus.OK)
         }
     }
 
@@ -23,21 +23,21 @@ internal class ResponseStatusTest {
         @Test fun returnsOkStatus() {
             val page = ResponseMetaPage(true, true, 1, 1, 1, 1, null, null)
             val collectionResponse = CollectionResponse(ResponseResourceCollection(TestResourceObject()), page)
-            assertEquals(collectionResponse.responseBody.meta.status, ResponseStatus.OK)
+            assertEquals(collectionResponse.body.meta.status, ResponseStatus.OK)
         }
 
     }
     @Nested inner class CreatedResponseTest {
         @Test fun returnsCreatedStatus() {
             val createdResponse = CreatedResponse(TestResourceObject())
-            assertEquals(createdResponse.responseBody.meta.status, ResponseStatus.CREATED)
+            assertEquals(createdResponse.body.meta.status, ResponseStatus.CREATED)
         }
 
     }
     @Nested inner class DeletedResponseTest {
         @Test fun returnsOkStatus() {
             val deletedResponse = DeletedResponse()
-            assertEquals(deletedResponse.responseBody.meta.status, ResponseStatus.OK)
+            assertEquals(deletedResponse.body.meta.status, ResponseStatus.OK)
         }
 
     }
@@ -46,8 +46,8 @@ internal class ResponseStatusTest {
         @Test fun returnsSpecifiedStatus() {
             val conflictResponse = ErrorResponse(ConflictException())
             val badRequestResponse = ErrorResponse(BadRequestException())
-            assertEquals(conflictResponse.responseBody.meta.status, ResponseStatus.CONFLICT)
-            assertEquals(badRequestResponse.responseBody.meta.status, ResponseStatus.BAD_REQUEST)
+            assertEquals(conflictResponse.body.meta.status, ResponseStatus.CONFLICT)
+            assertEquals(badRequestResponse.body.meta.status, ResponseStatus.BAD_REQUEST)
         }
 
     }
