@@ -2,8 +2,12 @@ package net.alexanderkahn.service.commons.model.response.body.data
 
 import java.util.*
 
-//TODO: this could probably be an internal class in ResourceObjectRelationship
-data class RelationshipObject(
-        override val type: String,
-        override val id: UUID
-) : ResourceIdentifier
+data class RelationshipObject(val data: RelationshipObjectIdentifier) {
+    constructor(type: String, id: UUID) : this(RelationshipObjectIdentifier(type, id))
+
+
+    data class RelationshipObjectIdentifier(
+            override val type: String,
+            override val id: UUID
+    ) : ResourceIdentifier
+}
