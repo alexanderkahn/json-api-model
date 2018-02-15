@@ -2,7 +2,7 @@ package net.alexanderkahn.service.commons.model.exception
 
 import net.alexanderkahn.service.commons.model.response.body.*
 import net.alexanderkahn.service.commons.model.response.body.data.ResourceObject
-import net.alexanderkahn.service.commons.model.response.body.meta.ResponseMetaPage
+import net.alexanderkahn.service.commons.model.response.body.meta.CollectionResponseMeta
 import net.alexanderkahn.service.commons.model.response.body.meta.ResponseStatus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
@@ -20,7 +20,7 @@ internal class ResponseStatusTest {
 
     @Nested inner class CollectionResponseTest {
         @Test fun returnsOkStatus() {
-            val page = ResponseMetaPage(true, true, 1, 1, 1, 1, null, null)
+            val page = CollectionResponseMeta.Page(true, true, 1, 1, 1, 1, null, null)
             val collectionResponse = CollectionResponse(listOf(TestResourceObject()), page)
             assertEquals(collectionResponse.meta.status, ResponseStatus.OK)
         }
