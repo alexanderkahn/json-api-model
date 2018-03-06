@@ -1,7 +1,7 @@
 package net.alexanderkahn.service.commons.model.response.body.meta
 
 class CollectionResponseMeta(
-        status: ResponseStatus = ResponseStatus.OK,
+        status: ResourceStatus = ResourceStatus.OK,
         val page: Page
 ): ObjectResponseMeta(status) {
 

@@ -5,18 +5,18 @@ import net.alexanderkahn.service.commons.model.response.body.data.ResourceObject
 import net.alexanderkahn.service.commons.model.response.body.error.ResponseError
 import net.alexanderkahn.service.commons.model.response.body.meta.CollectionResponseMeta
 import net.alexanderkahn.service.commons.model.response.body.meta.ObjectResponseMeta
-import net.alexanderkahn.service.commons.model.response.body.meta.ResponseStatus
+import net.alexanderkahn.service.commons.model.response.body.meta.ResourceStatus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.util.*
 
-internal class ResponseStatusTest {
+internal class ResourceStatusTest {
 
     @Nested inner class ObjectResponseTest {
         @Test fun returnsOkStatus() {
             val objectResponse = ObjectResponse(TestResourceObject())
-            assertEquals(objectResponse.meta.status, ResponseStatus.OK)
+            assertEquals(objectResponse.meta.status, ResourceStatus.OK)
         }
     }
 
@@ -24,37 +24,37 @@ internal class ResponseStatusTest {
         @Test fun returnsOkStatus() {
             val page = CollectionResponseMeta.Page(true, true, 1, 1, 1, 1, null, null)
             val collectionResponse = CollectionResponse(listOf(TestResourceObject()), page)
-            assertEquals(collectionResponse.meta.status, ResponseStatus.OK)
+            assertEquals(collectionResponse.meta.status, ResourceStatus.OK)
         }
 
     }
     @Nested inner class CreatedResponseTest {
         @Test fun returnsCreatedStatus() {
             val createdResponse = ObjectCreatedResponse(TestResourceObject())
-            assertEquals(createdResponse.meta.status, ResponseStatus.CREATED)
+            assertEquals(createdResponse.meta.status, ResourceStatus.CREATED)
         }
 
     }
     @Nested inner class DeletedResponseTest {
         @Test fun returnsOkStatus() {
             val deletedResponse = DeletedResponse()
-            assertEquals(deletedResponse.meta.status, ResponseStatus.OK)
+            assertEquals(deletedResponse.meta.status, ResourceStatus.OK)
         }
 
     }
 
     @Nested inner class ErrorsResponseTest {
         @Test fun returnsSpecifiedStatus() {
-            val conflictResponse = ErrorsResponse(ObjectResponseMeta(ResponseStatus.CONFLICT), setOf(ResponseError(ResponseStatus.CONFLICT, "Exception", "oh no")))
-            assertEquals(conflictResponse.meta.status, ResponseStatus.CONFLICT)
+            val conflictResponse = ErrorsResponse(ObjectResponseMeta(ResourceStatus.CONFLICT), setOf(ResponseError(ResourceStatus.CONFLICT, "Exception", "oh no")))
+            assertEquals(conflictResponse.meta.status, ResourceStatus.CONFLICT)
             assertEquals(1, conflictResponse.errors.size)
 
             val multipleErrorsResponse = ErrorsResponse(
-                    ObjectResponseMeta(ResponseStatus.BAD_REQUEST), setOf(
-                    ResponseError(ResponseStatus.CONFLICT, "Exception", "oh no"),
-                    ResponseError(ResponseStatus.NOT_FOUND, "Another Exception", "bother")
+                    ObjectResponseMeta(ResourceStatus.BAD_REQUEST), setOf(
+                    ResponseError(ResourceStatus.CONFLICT, "Exception", "oh no"),
+                    ResponseError(ResourceStatus.NOT_FOUND, "Another Exception", "bother")
             ))
-            assertEquals(multipleErrorsResponse.meta.status, ResponseStatus.BAD_REQUEST)
+            assertEquals(multipleErrorsResponse.meta.status, ResourceStatus.BAD_REQUEST)
             assertEquals(2, multipleErrorsResponse.errors.size)
         }
 
