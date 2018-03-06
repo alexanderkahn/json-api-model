@@ -1,4 +1,4 @@
-package net.alexanderkahn.service.commons.model.exception
+package net.alexanderkahn.service.commons.model
 
 import net.alexanderkahn.service.commons.model.response.body.*
 import net.alexanderkahn.service.commons.model.response.body.data.ResourceObject
@@ -45,14 +45,15 @@ internal class ResponseStatusTest {
 
     @Nested inner class ErrorsResponseTest {
         @Test fun returnsSpecifiedStatus() {
-            val conflictResponse = ErrorsResponse(ObjectResponseMeta(ResponseStatus.CONFLICT), setOf(ResponseError(ConflictException())))
+            val conflictResponse = ErrorsResponse(ObjectResponseMeta(ResponseStatus.CONFLICT), setOf(ResponseError(ResponseStatus.CONFLICT, "Exception", "oh no")))
             assertEquals(conflictResponse.meta.status, ResponseStatus.CONFLICT)
             assertEquals(1, conflictResponse.errors.size)
 
             val multipleErrorsResponse = ErrorsResponse(
-                    ObjectResponseMeta(ResponseStatus.BAD_REQUEST),
-                    setOf(ResponseError(ConflictException()), ResponseError(BadRequestException()))
-            )
+                    ObjectResponseMeta(ResponseStatus.BAD_REQUEST), setOf(
+                    ResponseError(ResponseStatus.CONFLICT, "Exception", "oh no"),
+                    ResponseError(ResponseStatus.NOT_FOUND, "Another Exception", "bother")
+            ))
             assertEquals(multipleErrorsResponse.meta.status, ResponseStatus.BAD_REQUEST)
             assertEquals(2, multipleErrorsResponse.errors.size)
         }
