@@ -14,3 +14,7 @@ enum class ResourceStatus(val statusCode: Int, val reasonPhrase: String) {
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
     NOT_IMPLEMENTED(501, "Not Implemented")
 }
+
+fun resourceStatusof(code: Int): ResourceStatus {
+    return ResourceStatus.values().find { it.statusCode == code } ?: ResourceStatus.INTERNAL_SERVER_ERROR
+}
