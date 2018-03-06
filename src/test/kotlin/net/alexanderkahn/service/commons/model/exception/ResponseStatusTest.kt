@@ -2,7 +2,9 @@ package net.alexanderkahn.service.commons.model.exception
 
 import net.alexanderkahn.service.commons.model.response.body.*
 import net.alexanderkahn.service.commons.model.response.body.data.ResourceObject
+import net.alexanderkahn.service.commons.model.response.body.error.ResponseError
 import net.alexanderkahn.service.commons.model.response.body.meta.CollectionResponseMeta
+import net.alexanderkahn.service.commons.model.response.body.meta.ObjectResponseMeta
 import net.alexanderkahn.service.commons.model.response.body.meta.ResponseStatus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
@@ -41,12 +43,18 @@ internal class ResponseStatusTest {
 
     }
 
-    @Nested inner class ErrorResponseTest {
+    @Nested inner class ErrorsResponseTest {
         @Test fun returnsSpecifiedStatus() {
-            val conflictResponse = ErrorResponse(ConflictException())
+            val conflictResponse = ErrorsResponse(ObjectResponseMeta(ResponseStatus.CONFLICT), setOf(ResponseError(ConflictException())))
             assertEquals(conflictResponse.meta.status, ResponseStatus.CONFLICT)
-            val badRequestResponse = ErrorResponse(BadRequestException())
-            assertEquals(badRequestResponse.meta.status, ResponseStatus.BAD_REQUEST)
+            assertEquals(1, conflictResponse.errors.size)
+
+            val multipleErrorsResponse = ErrorsResponse(
+                    ObjectResponseMeta(ResponseStatus.BAD_REQUEST),
+                    setOf(ResponseError(ConflictException()), ResponseError(BadRequestException()))
+            )
+            assertEquals(multipleErrorsResponse.meta.status, ResponseStatus.BAD_REQUEST)
+            assertEquals(2, multipleErrorsResponse.errors.size)
         }
 
     }
@@ -54,7 +62,7 @@ internal class ResponseStatusTest {
 
 class TestResourceObject : ResourceObject {
     override val type = "TEST"
-    override val id = UUID.randomUUID()
+    override val id = UUID.randomUUID()!!
     override val meta: Nothing? =  null
     override val attributes: Nothing? = null
     override val relationships: Nothing? = null
