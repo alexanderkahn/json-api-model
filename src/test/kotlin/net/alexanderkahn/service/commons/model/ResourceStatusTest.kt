@@ -59,6 +59,16 @@ internal class ResourceStatusTest {
         }
 
     }
+
+    @Nested inner class DefaultReasonPhraseTest {
+        @Test fun retainsOKCapitalization() {
+            assertEquals("OK", ResourceStatus.OK.defaultReasonPhrase())
+        }
+
+        @Test fun capitalizesAndSpaces() {
+            assertEquals("Not Implemented", ResourceStatus.NOT_IMPLEMENTED.defaultReasonPhrase())
+        }
+    }
 }
 
 class TestResourceObject : ResourceObject {
