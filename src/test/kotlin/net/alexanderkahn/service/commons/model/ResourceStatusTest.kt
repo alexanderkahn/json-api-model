@@ -45,12 +45,12 @@ internal class ResourceStatusTest {
 
     @Nested inner class ErrorsResponseTest {
         @Test fun returnsSpecifiedStatus() {
-            val conflictResponse = ErrorsResponse(ObjectResponseMeta(ResourceStatus.CONFLICT), setOf(ResponseError(ResourceStatus.CONFLICT, "Exception", "oh no")))
+            val conflictResponse = ErrorsResponse(ResponseError(ResourceStatus.CONFLICT, "Exception", "oh no"))
             assertEquals(conflictResponse.meta.status, ResourceStatus.CONFLICT)
             assertEquals(1, conflictResponse.errors.size)
 
             val multipleErrorsResponse = ErrorsResponse(
-                    ObjectResponseMeta(ResourceStatus.BAD_REQUEST), setOf(
+                    ObjectResponseMeta(ResourceStatus.BAD_REQUEST), listOf(
                     ResponseError(ResourceStatus.CONFLICT, "Exception", "oh no"),
                     ResponseError(ResourceStatus.NOT_FOUND, "Another Exception", "bother")
             ))

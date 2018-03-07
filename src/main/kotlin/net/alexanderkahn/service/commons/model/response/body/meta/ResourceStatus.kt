@@ -1,5 +1,6 @@
 package net.alexanderkahn.service.commons.model.response.body.meta
 
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonValue
 
 enum class ResourceStatus(@JsonValue val statusCode: String) {
@@ -20,8 +21,11 @@ enum class ResourceStatus(@JsonValue val statusCode: String) {
         "OK" -> name
         else -> name.split("_").joinToString(" ") { it.toLowerCase().capitalize() }
     }
-}
 
-fun resourceStatusOf(code: String): ResourceStatus {
-    return ResourceStatus.values().find { it.statusCode == code } ?: ResourceStatus.INTERNAL_SERVER_ERROR
+    companion object {
+        @JsonCreator
+        fun fromCode(code: String): ResourceStatus? {
+            return ResourceStatus.values().find { it.statusCode == code }
+        }
+    }
 }
