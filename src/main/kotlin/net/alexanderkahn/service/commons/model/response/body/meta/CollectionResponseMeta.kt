@@ -1,5 +1,8 @@
 package net.alexanderkahn.service.commons.model.response.body.meta
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder
+
+@JsonPropertyOrder("status", "time", "page")
 class CollectionResponseMeta(
         status: ResourceStatus = ResourceStatus.OK,
         val page: Page
