@@ -6,7 +6,7 @@ import kotlin.reflect.KClass
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
-@Constraint(validatedBy = [ExpectedTypeValidator::class])
+@Constraint(validatedBy = [ExpectedTypeValidator::class, ExpectedTypeRelationshipResourceValidator::class])
 annotation class ExpectedType(
         val value: String,
         val message: String = "Unexpected type",
