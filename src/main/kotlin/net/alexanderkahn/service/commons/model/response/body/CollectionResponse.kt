@@ -11,5 +11,5 @@ class CollectionResponse<out RO: ResourceObject>(
         page: CollectionResponseMeta.Page,
         val included: List<ResourceObject>? = null
 ) : Response {
-    override val meta: CollectionResponseMeta = CollectionResponseMeta(ResourceStatus.OK, page)
+    override val meta: CollectionResponseMeta = CollectionResponseMeta(page)
 }

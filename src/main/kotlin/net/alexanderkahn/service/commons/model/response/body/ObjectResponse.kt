@@ -10,5 +10,5 @@ data class ObjectResponse<out RO : ResourceObject>(
         val data: RO,
         val included: List<ResourceObject>? = null
 ) : Response {
-    override val meta: ObjectResponseMeta = ObjectResponseMeta(ResourceStatus.OK)
+    override val meta: ObjectResponseMeta = ObjectResponseMeta()
 }

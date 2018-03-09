@@ -8,5 +8,5 @@ class ObjectCreatedResponse<out RO : ResourceObject>(
         val data: RO,
         val included: List<ResourceObject>? = null
 ) : Response {
-    override val meta: ObjectResponseMeta = ObjectResponseMeta(ResourceStatus.CREATED)
+    override val meta: ObjectResponseMeta = ObjectResponseMeta()
 }

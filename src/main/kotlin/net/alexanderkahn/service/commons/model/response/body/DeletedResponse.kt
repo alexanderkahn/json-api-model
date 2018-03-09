@@ -4,5 +4,5 @@ import net.alexanderkahn.service.commons.model.response.body.meta.ObjectResponse
 import net.alexanderkahn.service.commons.model.response.body.meta.ResourceStatus
 
 class DeletedResponse : Response {
-    override val meta: ObjectResponseMeta = ObjectResponseMeta(ResourceStatus.OK)
+    override val meta: ObjectResponseMeta = ObjectResponseMeta()
 }

@@ -37,13 +37,13 @@ class ResourceObjectPropertyOrderTest {
 
     @Test
     internal fun objectMetaInCorrectOrder() {
-        val expectedOrder = listOf("status", "time")
+        val expectedOrder = listOf("time")
         assertAllPropertiesOrdered(ObjectResponseMeta::class, expectedOrder)
     }
 
     @Test
     internal fun collectionMetaInCorrectOrder() {
-        val expectedOrder = listOf("status", "time", "page")
+        val expectedOrder = listOf("time", "page")
         assertAllPropertiesOrdered(CollectionResponseMeta::class, expectedOrder)
     }
 
