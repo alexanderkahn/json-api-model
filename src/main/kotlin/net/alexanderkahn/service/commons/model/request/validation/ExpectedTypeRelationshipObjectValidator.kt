@@ -4,7 +4,7 @@ import net.alexanderkahn.service.commons.model.response.body.data.RelationshipOb
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
 
-class ExpectedTypeRelationshipResourceValidator : ConstraintValidator<ExpectedType, RelationshipObject> {
+class ExpectedTypeRelationshipObjectValidator : ConstraintValidator<ExpectedType, RelationshipObject> {
 
     private lateinit var expectedTypeValue: String
 
