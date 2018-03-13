@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.BeanDescription
 import com.fasterxml.jackson.databind.ObjectMapper
 import net.alexanderkahn.service.commons.model.response.body.CollectionResponse
 import net.alexanderkahn.service.commons.model.response.body.ObjectResponse
+import net.alexanderkahn.service.commons.model.response.body.data.ModifiableResourceObject
 import net.alexanderkahn.service.commons.model.response.body.data.ResourceObject
 import net.alexanderkahn.service.commons.model.response.body.error.ResponseError
 import net.alexanderkahn.service.commons.model.response.body.meta.CollectionResponseMeta
+import net.alexanderkahn.service.commons.model.response.body.meta.ModifiableResourceMeta
 import net.alexanderkahn.service.commons.model.response.body.meta.ObjectResponseMeta
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
@@ -36,6 +38,12 @@ class ResourceObjectPropertyOrderTest {
     }
 
     @Test
+    internal fun modifiableResourceObjectDataInCorrectOrder() {
+        val expectedOrder = listOf("type", "id", "meta", "attributes", "relationships")
+        assertAllPropertiesOrdered(ModifiableResourceObject::class, expectedOrder)
+    }
+
+    @Test
     internal fun objectMetaInCorrectOrder() {
         val expectedOrder = listOf("time")
         assertAllPropertiesOrdered(ObjectResponseMeta::class, expectedOrder)
@@ -45,6 +53,12 @@ class ResourceObjectPropertyOrderTest {
     internal fun collectionMetaInCorrectOrder() {
         val expectedOrder = listOf("time", "page")
         assertAllPropertiesOrdered(CollectionResponseMeta::class, expectedOrder)
+    }
+
+    @Test
+    internal fun modifiableResourceMetaInCorrectOrder() {
+        val expectedOrder = listOf("created", "lastModified")
+        assertAllPropertiesOrdered(ModifiableResourceMeta::class, expectedOrder)
     }
 
     @Test
