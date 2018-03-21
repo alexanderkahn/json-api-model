@@ -1,3 +1,6 @@
+apply plugin: 'maven'
+apply plugin: 'kotlin'
+
 buildscript {
     repositories {
         mavenCentral()
@@ -10,63 +13,51 @@ buildscript {
     }
 }
 
-plugins {
-    id 'maven'
-    id "org.jetbrains.kotlin.jvm" version "1.2.30"
-}
-
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-        javaParameters = true
-    }
-}
-
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-        javaParameters = true
-    }
-}
-
 allprojects {
     group = 'net.alexanderkahn.service.commons'
     version = '0.0.15'
-}
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            javaParameters = true
+        }
+    }
 
-artifacts {
-    archives sourcesJar
-}
+    compileTestKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            javaParameters = true
+        }
+    }
 
-repositories {
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
 
-    mavenCentral()
-    maven { url "https://mymavenrepo.com/repo/lAiy4A1hEE4gbMwMRp44" }
-}
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
 
-test {
-    useJUnitPlatform()
-    testLogging {
-        events "PASSED", "FAILED", "SKIPPED"
+    artifacts {
+        archives sourcesJar
     }
 }
 
-ext {
-    jackson_version = '2.9.4'
-    junit_version = '5.0.1'
+repositories {
+    mavenCentral()
 }
 
 dependencies {
-    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: kotlin_version
-    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jackson_version
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junit_version
-    testCompile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlin_version
-    testCompile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson_version
-    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junit_version
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jacksonVersion
+    compile group: 'javax.validation', name: 'validation-api', version: validationApiVersion
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: kotlinVersion
+    testCompile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+    testCompile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlinVersion
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
+    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
 }
