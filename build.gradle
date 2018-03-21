@@ -15,7 +15,7 @@ buildscript {
 
 allprojects {
     group = 'net.alexanderkahn.service.commons'
-    version = '0.0.15'
+    version = '0.0.16'
 
     compileKotlin {
         kotlinOptions {
